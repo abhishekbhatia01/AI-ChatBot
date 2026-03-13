@@ -2,8 +2,10 @@ import dotenv from "dotenv";
 import { GoogleGenAI } from "@google/genai";
 import express from "express";
 import bodyParser from "body-parser";
+import cors from "cors";
 const app = express();
 
+app.use(cors());    
 app.use(express.json());
 app.use(bodyParser.json());
 
@@ -23,7 +25,7 @@ async function main(prompt) {
 }
 
 
-app.get("/content", async (req, res) => {
+app.post("/content", async (req, res) => {
     try {
         const prompt = req.body.prompt;
         const resu = await main(prompt);
